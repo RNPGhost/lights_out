@@ -30,14 +30,12 @@ public class Map : MonoBehaviour {
   
   // implementation
   private void InitialiseMap() {
-    // create empty map
     for (int x = 0; x < _mapSize.x; x++) {
       for (int y = 0; y < _mapSize.y; y++) {
         _map.Add(new Vector2(x, y), TileType.Empty);
       }
     }
-
-    // set entrance position
+    
     _map[_entrancePosition] = TileType.Entrance;
   }
 }

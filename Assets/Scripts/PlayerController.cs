@@ -15,6 +15,9 @@ public class PlayerController : CharacterController {
     }
   }
 
+  public override void MovementComplete() {
+    _gameController.PlayerMovementComplete();
+  }
   // initialisation
   protected override void Awake() {
     base.Awake();

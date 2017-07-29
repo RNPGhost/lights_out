@@ -5,6 +5,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour {
   // state
   private Vector2 _characterPosition;
+
+  // references
   private GameObjectMover _characterObjectMover;
 
   // interface
@@ -18,9 +20,11 @@ public class CharacterController : MonoBehaviour {
     _characterPosition = position;
   }
 
+  public virtual void MovementComplete() { }
+
   // initialisation
   protected virtual void Awake() {
-    _characterObjectMover = new GameObjectMover(gameObject, FindObjectOfType<Map>().GetMapSize());
+    _characterObjectMover = new GameObjectMover(this, gameObject, FindObjectOfType<Map>().GetMapSize());
   }
 
   // implementation

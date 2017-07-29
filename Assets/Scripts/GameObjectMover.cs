@@ -4,22 +4,24 @@ public class GameObjectMover {
   //constants
   public const float WORLD_SCALE = 2;
 
-  // state
+  // references
+  private CharacterController _characterController;
   private GameObject _gameObject;
   private Vector2 _mapSize;
 
   // interface
-  public GameObjectMover(GameObject gameObject, Vector2 mapSize) {
+  public GameObjectMover(CharacterController characterController, GameObject gameObject, Vector2 mapSize) {
+    _characterController = characterController;
     _gameObject = gameObject;
     _mapSize = mapSize;
   }
 
   public void MoveTo(Vector2 position) {
     _gameObject.transform.position = ConvertToWorldPosition(position);
+    _characterController.MovementComplete();
   }
 
   public void MoveToStartPosition(Vector2 startPosition) {
-    Debug.Log(startPosition);
     _gameObject.transform.position = ConvertToWorldPosition(startPosition);
   }
 
