@@ -19,10 +19,11 @@ public class CharacterController : MonoBehaviour {
   }
 
   // initialisation
-  private void Awake() {
+  protected virtual void Awake() {
     _characterObjectMover = new GameObjectMover(gameObject);
   }
 
+  // implementation
   protected Vector2 GetPosition() {
     return _characterPosition;
   }

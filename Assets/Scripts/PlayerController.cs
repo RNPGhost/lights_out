@@ -16,7 +16,8 @@ public class PlayerController : CharacterController {
   }
 
   // initialisation
-  private void Awake() {
+  protected override void Awake() {
+    base.Awake();
     _map = FindObjectOfType<Map>();
     _gameController = FindObjectOfType<GameController>();
   }
