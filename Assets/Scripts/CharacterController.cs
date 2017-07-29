@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour {
 
   // initialisation
   protected virtual void Awake() {
-    _characterObjectMover = new GameObjectMover(gameObject);
+    _characterObjectMover = new GameObjectMover(gameObject, FindObjectOfType<Map>().GetMapSize());
   }
 
   // implementation
