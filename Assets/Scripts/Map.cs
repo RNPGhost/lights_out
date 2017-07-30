@@ -45,8 +45,8 @@ public class Map : MonoBehaviour {
     _map[_entrancePosition] = TileType.Entrance;
     _map[_goalPosition] = TileType.Goal;
 
-    foreach (ObstacleController obstacleController in FindObjectsOfType<ObstacleController>()) {
-      _map[obstacleController.GetPosition()] = TileType.Obstacle;
+    foreach (ObjectController objectController in FindObjectsOfType<ObjectController>()) {
+      _map[objectController.GetPosition()] = objectController.GetTileType();
     }
   }
 }
