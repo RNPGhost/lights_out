@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
+  // set in editor
+  public float speed;
+
   // state
   private Vector2 _characterPosition;
 
@@ -24,11 +25,15 @@ public class CharacterController : MonoBehaviour {
 
   // initialisation
   protected virtual void Awake() {
-    _characterObjectMover = new GameObjectMover(this, gameObject, FindObjectOfType<Map>().GetMapSize());
+    _characterObjectMover = new GameObjectMover(this, gameObject, FindObjectOfType<Map>().GetMapSize(), speed);
   }
 
   // implementation
   protected Vector2 GetPosition() {
     return _characterPosition;
+  }
+
+  private void Update() {
+    _characterObjectMover.Update();
   }
 }
