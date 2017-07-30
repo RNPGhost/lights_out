@@ -1,9 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameController : MonoBehaviour {
   // references
   private MonstersController _monstersController;
+  private Map _map;
 
   // state
   private GameState _state;
@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour {
       _monstersMoving = true;
       playerController.MoveCharacter(playerPosition);
       _monstersController.MoveMonsters(playerPosition);
-      // if collision, game over
+      if (_map.IsGoal(playerPosition)) {
+        _state = GameState.GameOver;
+        // display win screen
+      }
     }
   }
 
@@ -45,13 +48,17 @@ public class GameController : MonoBehaviour {
   }
 
   public void PlayerCaught(MonsterController monsterController) {
-    _state = GameState.GameOver;
+    if (_state != GameState.GameOver) {
+      _state = GameState.GameOver;
+      // display player loses screen
+    }
   }
 
   // initialisation
   private void Awake() {
     _state = GameState.WaitingForMove;
     _monstersController = FindObjectOfType<MonstersController>();
+    _map = FindObjectOfType<Map>();
   }
 
 

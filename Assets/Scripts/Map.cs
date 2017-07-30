@@ -4,6 +4,7 @@ using UnityEngine;
 public class Map : MonoBehaviour {
   // set in editor
   public Vector2 _entrancePosition;
+  public Vector2 _goalPosition;
   public Vector2 _mapSize;
 
   // state
@@ -17,6 +18,11 @@ public class Map : MonoBehaviour {
   public bool CanMoveTo(Vector2 position) {
     TileType tileType;
     return (_map.TryGetValue(position, out tileType)) && (tileType != TileType.Obstacle);
+  }
+
+  public bool IsGoal(Vector2 position) {
+    TileType tileType;
+    return (_map.TryGetValue(position, out tileType)) && (tileType == TileType.Goal);
   }
 
   public Vector2 GetMapSize() {
@@ -37,6 +43,11 @@ public class Map : MonoBehaviour {
     }
     
     _map[_entrancePosition] = TileType.Entrance;
+    _map[_goalPosition] = TileType.Goal;
+
+    foreach (ObstacleController obstacleController in FindObjectsOfType<ObstacleController>()) {
+      _map[obstacleController.GetPosition()] = TileType.Obstacle;
+    }
   }
 }
 

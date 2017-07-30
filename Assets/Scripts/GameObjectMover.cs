@@ -23,12 +23,12 @@ public class GameObjectMover {
 
   public void MoveTo(Vector2 position, float speed) {
     _speed = speed * WORLD_SCALE;
-    _target = ConvertToWorldPosition(position);
+    _target = Utils.ConvertToWorldPosition(position, _mapSize);
     _moveTowardsTarget = true;
   }
 
   public void MoveToStartPosition(Vector2 startPosition) {
-    _gameObject.transform.position = ConvertToWorldPosition(startPosition);
+    _gameObject.transform.position = Utils.ConvertToWorldPosition(startPosition, _mapSize);
   }
 
   public void Update() {
@@ -40,13 +40,5 @@ public class GameObjectMover {
         _characterController.MovementComplete();
       }
     }
-  }
-
-  // implementation
-  private Vector3 ConvertToWorldPosition(Vector2 mapPosition) {
-    float x = (mapPosition.x - (_mapSize.x - 1) / 2) * WORLD_SCALE;
-    float y = 0;
-    float z = (mapPosition.y - (_mapSize.y - 1) / 2) * WORLD_SCALE;
-    return new Vector3(x, y, z);
   }
 }
