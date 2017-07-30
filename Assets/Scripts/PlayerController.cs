@@ -18,7 +18,6 @@ public class PlayerController : CharacterController {
   }
 
   // initialisation
-
   private void Start() {
     SetStartingPosition(GetMap().GetEntrancePosition());
   }

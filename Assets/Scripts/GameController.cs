@@ -23,7 +23,9 @@ public class GameController : MonoBehaviour {
   }
 
   public void MovementComplete() {
-    _state = GameState.WaitingForMove;
+    if (_state == GameState.Moving) {
+      _state = GameState.WaitingForMove;
+    }
   }
 
   public void CheckMovementComplete() {
@@ -42,6 +44,10 @@ public class GameController : MonoBehaviour {
     CheckMovementComplete();
   }
 
+  public void PlayerCaught(MonsterController monsterController) {
+    _state = GameState.GameOver;
+  }
+
   // initialisation
   private void Awake() {
     _state = GameState.WaitingForMove;
@@ -52,6 +58,7 @@ public class GameController : MonoBehaviour {
   // implementation
   private enum GameState {
     WaitingForMove,
-    Moving
+    Moving,
+    GameOver
   }
 }

@@ -28,6 +28,10 @@ public class MonstersController : MonoBehaviour {
     }
   }
 
+  public void PlayerCaught(MonsterController monsterController) {
+    _gameController.PlayerCaught(monsterController);
+  }
+
   // initialisation
   private void Awake() {
     _gameController = FindObjectOfType<GameController>();
