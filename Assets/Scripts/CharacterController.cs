@@ -22,12 +22,17 @@ public class CharacterController : MonoBehaviour {
 
   // initialisation
   protected virtual void Awake() {
-    _map = FindObjectOfType<Map>();
+    InitialisePosition();
     _gameController = FindObjectOfType<GameController>();
+    _map = _gameController.GetMap();
     _characterObjectMover = new GameObjectMover(this, gameObject);
   }
 
   // implementation
+  private void InitialisePosition() {
+    _characterPosition = Utils.ConvertToMapPosition(gameObject.transform.position);
+  }
+
   protected bool CanMoveTo(Vector2 position) {
     return _map.CanMoveTo(position);
   }

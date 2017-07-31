@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MonsterController : CharacterController {
   // references
@@ -34,9 +32,11 @@ public class MonsterController : CharacterController {
   // initialisation
   protected override void Awake() {
     base.Awake();
-    _monstersController = FindObjectOfType<MonstersController>();
   }
 
+  private void Start() {
+    _monstersController = GetGameController().GetMonstersController();
+  }
   // implementation
   private void PlayerCaught() {
     _playerCaught = true;

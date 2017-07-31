@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour {
+public class Map {
 
   // state
   private Dictionary<Vector2, TileType> _map = new Dictionary<Vector2, TileType>();
@@ -17,10 +17,6 @@ public class Map : MonoBehaviour {
   public bool IsGoal(Vector2 position) {
     TileType tileType;
     return (_map.TryGetValue(position, out tileType)) && (tileType == TileType.Goal);
-  }
-
-  public Vector2 GetMapSize() {
-    return _topRightCorner - _bottomLeftCorner;
   }
 
   public bool AddObjectToMap(Vector2 position, TileType tileType) {

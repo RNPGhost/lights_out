@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class MonstersController : MonoBehaviour {
+public class MonstersController {
   // state
   private HashSet<MonsterController> _movingMonsters = new HashSet<MonsterController>();
 
@@ -10,6 +10,11 @@ public class MonstersController : MonoBehaviour {
   private MonsterController[] _monsterControllers;
 
   // interface
+  public MonstersController(GameController gameController, MonsterController[] monsterControllers) {
+    _gameController = gameController;
+    _monsterControllers = monsterControllers;
+  }
+
   public void MoveMonsters(Vector2 playerPosition) {
     if (_monsterControllers.Length == 0) {
       _gameController.MonstersMovementComplete();
@@ -30,11 +35,5 @@ public class MonstersController : MonoBehaviour {
 
   public void PlayerCaught(MonsterController monsterController) {
     _gameController.PlayerCaught(monsterController);
-  }
-
-  // initialisation
-  private void Awake() {
-    _gameController = FindObjectOfType<GameController>();
-    _monsterControllers = FindObjectsOfType<MonsterController>();
   }
 }

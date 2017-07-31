@@ -11,6 +11,14 @@ public class GameController : MonoBehaviour {
   private bool _monstersMoving = false;
 
   // interface
+  public Map GetMap() {
+    return _map;
+  }
+
+  public MonstersController GetMonstersController() {
+    return _monstersController;
+  }
+
   public void MovePlayer(PlayerController playerController, Vector2 playerPosition) {
     if (_state == GameState.WaitingForMove) {
       _state = GameState.Moving;
@@ -57,8 +65,9 @@ public class GameController : MonoBehaviour {
   // initialisation
   private void Awake() {
     _state = GameState.WaitingForMove;
-    _monstersController = FindObjectOfType<MonstersController>();
-    _map = FindObjectOfType<Map>();
+    _map = new Map();
+    new ObjectLoader(_map);
+    _monstersController = new MonstersController(this, FindObjectsOfType<MonsterController>());
   }
 
 

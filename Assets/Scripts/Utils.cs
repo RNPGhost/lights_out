@@ -9,4 +9,10 @@ public static class Utils {
     float z = mapPosition.y * WORLD_SCALE;
     return new Vector3(x, y, z);
   }
+
+  public static Vector2 ConvertToMapPosition(Vector3 worldPosition) {
+    int x = (int)(worldPosition.x / WORLD_SCALE);
+    int y = (int)(worldPosition.z / WORLD_SCALE);
+    return new Vector2(x, y);
+  }
 }
