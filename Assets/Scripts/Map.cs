@@ -2,19 +2,13 @@
 using UnityEngine;
 
 public class Map : MonoBehaviour {
-  // set in editor
-  public Vector2 _entrancePosition;
-  public Vector2 _goalPosition;
-  public Vector2 _mapSize;
 
   // state
   private Dictionary<Vector2, TileType> _map = new Dictionary<Vector2, TileType>();
+  private Vector2 _topRightCorner;
+  private Vector2 _bottomLeftCorner;
 
   // interface
-  public Vector2 GetEntrancePosition() {
-    return _entrancePosition;
-  }
-
   public bool CanMoveTo(Vector2 position) {
     TileType tileType;
     return (_map.TryGetValue(position, out tileType)) && (tileType != TileType.Obstacle);
@@ -26,27 +20,35 @@ public class Map : MonoBehaviour {
   }
 
   public Vector2 GetMapSize() {
-    return _mapSize;
+    return _topRightCorner - _bottomLeftCorner;
   }
 
-  // initialisation
-  private void Awake() {
-    InitialiseMap();
-  }
-  
-  // implementation
-  private void InitialiseMap() {
-    for (int x = 0; x < _mapSize.x; x++) {
-      for (int y = 0; y < _mapSize.y; y++) {
-        _map.Add(new Vector2(x, y), TileType.Empty);
-      }
+  public bool AddObjectToMap(Vector2 position, TileType tileType) {
+    if (!_map.ContainsKey(position)) {
+      UpdateMapSize(position);
+      _map.Add(position, tileType);
+      return true;
     }
-    
-    _map[_entrancePosition] = TileType.Entrance;
-    _map[_goalPosition] = TileType.Goal;
 
-    foreach (ObjectController objectController in FindObjectsOfType<ObjectController>()) {
-      _map[objectController.GetPosition()] = objectController.GetTileType();
+    return false;
+  }
+
+  // implementation
+  private void UpdateMapSize(Vector2 newTilePosition) {
+    if (_map.Count == 0) {
+      _topRightCorner = newTilePosition;
+      _bottomLeftCorner = newTilePosition;
+    } else {
+      if (newTilePosition.x > _topRightCorner.x) {
+        _topRightCorner.x = newTilePosition.x;
+      } else if (newTilePosition.x < _bottomLeftCorner.x) {
+        _bottomLeftCorner.x = newTilePosition.x;
+      }
+      if (newTilePosition.y > _topRightCorner.y) {
+        _topRightCorner.y = newTilePosition.y;
+      } else if (newTilePosition.y < _bottomLeftCorner.y) {
+        _bottomLeftCorner.y = newTilePosition.y;
+      }
     }
   }
 }

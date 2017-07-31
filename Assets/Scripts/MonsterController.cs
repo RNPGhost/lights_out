@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterController : CharacterController {
-  // set in editor
-  public Vector2 _startingPosition;
-
   // references
   private MonstersController _monstersController;
 
@@ -38,7 +35,6 @@ public class MonsterController : CharacterController {
   protected override void Awake() {
     base.Awake();
     _monstersController = FindObjectOfType<MonstersController>();
-    SetStartingPosition(_startingPosition);
   }
 
   // implementation

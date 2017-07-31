@@ -7,7 +7,6 @@ public class GameObjectMover {
   // references
   private CharacterController _characterController;
   private GameObject _gameObject;
-  private Vector2 _mapSize;
 
   // state
   private bool _moveTowardsTarget = false;
@@ -15,20 +14,19 @@ public class GameObjectMover {
   public float _speed;
 
   // interface
-  public GameObjectMover(CharacterController characterController, GameObject gameObject, Vector2 mapSize) {
+  public GameObjectMover(CharacterController characterController, GameObject gameObject) {
     _characterController = characterController;
     _gameObject = gameObject;
-    _mapSize = mapSize;
   }
 
   public void MoveTo(Vector2 position, float speed) {
     _speed = speed * WORLD_SCALE;
-    _target = Utils.ConvertToWorldPosition(position, _mapSize);
+    _target = Utils.ConvertToWorldPosition(position);
     _moveTowardsTarget = true;
   }
 
   public void MoveToStartPosition(Vector2 startPosition) {
-    _gameObject.transform.position = Utils.ConvertToWorldPosition(startPosition, _mapSize);
+    _gameObject.transform.position = Utils.ConvertToWorldPosition(startPosition);
   }
 
   public void Update() {

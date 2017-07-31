@@ -16,9 +16,4 @@ public class PlayerController : CharacterController {
   public override void MovementComplete() {
     GetGameController().PlayerMovementComplete();
   }
-
-  // initialisation
-  private void Start() {
-    SetStartingPosition(GetMap().GetEntrancePosition());
-  }
 }

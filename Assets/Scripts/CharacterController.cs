@@ -18,22 +18,16 @@ public class CharacterController : MonoBehaviour {
     _characterPosition = position;
   }
 
-  public void SetStartingPosition(Vector2 position) {
-    _characterObjectMover.MoveToStartPosition(position);
-    _characterPosition = position;
-  }
-
   public virtual void MovementComplete() { }
 
   // initialisation
   protected virtual void Awake() {
     _map = FindObjectOfType<Map>();
     _gameController = FindObjectOfType<GameController>();
-    _characterObjectMover = new GameObjectMover(this, gameObject, FindObjectOfType<Map>().GetMapSize());
+    _characterObjectMover = new GameObjectMover(this, gameObject);
   }
 
   // implementation
-
   protected bool CanMoveTo(Vector2 position) {
     return _map.CanMoveTo(position);
   }
