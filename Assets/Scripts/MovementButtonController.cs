@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MovementButtonController : MonoBehaviour {
   // set in editor
   public Vector2 _direction;
   
   // references
-  private PlayerController _playerController;
+  private GameController _gameController;
 
   // interface
   public void Clicked() {
-    _playerController.AttemptToMove(_direction);
+    _gameController.ReceiveInput(_direction);
   }
 
-  public void SetPlayerController(PlayerController playerController) {
-    _playerController = playerController;
+  // initialisation
+  public void Awake() {
+    _gameController = FindObjectOfType<GameController>();
   }
 }

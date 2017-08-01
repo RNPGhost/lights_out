@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 public static class Utils {
-  public const float WORLD_SCALE = 2;
+  private const float WORLD_SCALE = 2;
+  private const float MOVEMENT_TIME = 2;
 
   public static Vector3 ConvertToWorldPosition(Vector2 mapPosition) {
     float x = mapPosition.x * WORLD_SCALE;
@@ -14,5 +15,9 @@ public static class Utils {
     int x = (int)(worldPosition.x / WORLD_SCALE);
     int y = (int)(worldPosition.z / WORLD_SCALE);
     return new Vector2(x, y);
+  }
+
+  public static float GetCharacterSpeed(float pathLength) {
+    return (pathLength * WORLD_SCALE) / MOVEMENT_TIME;
   }
 }
