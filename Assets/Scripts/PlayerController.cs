@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : CharacterController {
-  // references
-  
   // interface
   public void AttemptToMove(Vector2 direction) {
     Vector2 target = GetPosition() + direction;
@@ -15,5 +11,13 @@ public class PlayerController : CharacterController {
 
   public override void MovementComplete() {
     GetGameController().PlayerMovementComplete();
+  }
+
+  // initialisation
+  protected override void Awake() {
+    base.Awake();
+    foreach (MovementButtonController movementButtonController in FindObjectsOfType<MovementButtonController>()) {
+      movementButtonController.SetPlayerController(this);
+    }
   }
 }

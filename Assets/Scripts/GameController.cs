@@ -70,7 +70,6 @@ public class GameController : MonoBehaviour {
     _monstersController = new MonstersController(this, FindObjectsOfType<MonsterController>());
   }
 
-
   // implementation
   private enum GameState {
     WaitingForMove,

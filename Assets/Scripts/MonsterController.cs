@@ -30,13 +30,10 @@ public class MonsterController : CharacterController {
   }
 
   // initialisation
-  protected override void Awake() {
-    base.Awake();
-  }
-
   private void Start() {
     _monstersController = GetGameController().GetMonstersController();
   }
+
   // implementation
   private void PlayerCaught() {
     _playerCaught = true;
