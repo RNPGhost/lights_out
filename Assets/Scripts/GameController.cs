@@ -1,7 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
+  // set in editor
+  public GameObject _levelUI;
+  public GameObject _gameOverUI;
+  public Text _gameOverText;
+  public string _winText;
+  public string _lossText;
+
   // references
   private Map _map;
 
@@ -30,7 +38,7 @@ public class GameController : MonoBehaviour {
         // monsters don't move if the player will reach the goal this turn
         _movingCharacters.Add(_playerController);
         _playerController.Move(playerTargetPosition);
-        // display win screen
+        SwitchToGameOverUI(won: true);
       } else {
         foreach (CharacterController characterController in _characterControllers) {
           _movingCharacters.Add(characterController);
@@ -63,11 +71,17 @@ public class GameController : MonoBehaviour {
   }
 
   // implementation
-  public void PlayerCaught(MonsterController monsterController) {
+  private void PlayerCaught(MonsterController monsterController) {
     if (_state != GameState.GameOver) {
       _state = GameState.GameOver;
-      // display player loses screen
+      SwitchToGameOverUI(won: false);
     }
+  }
+
+  private void SwitchToGameOverUI(bool won) {
+    _gameOverText.text = won ? _winText : _lossText;
+    _levelUI.SetActive(false);
+    _gameOverUI.SetActive(true);
   }
 
   private enum GameState {
