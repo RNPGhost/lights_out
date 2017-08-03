@@ -6,27 +6,13 @@ public class Map {
   private Dictionary<Vector2, TileType> _map = new Dictionary<Vector2, TileType>();
   private Vector2 _topRightCorner;
   private Vector2 _bottomLeftCorner;
-  private HashSet<TileType> _playerMovementTiles = new HashSet<TileType>() {
-    TileType.Empty,
-    TileType.Entrance,
-    TileType.Goal
-  };
-  private HashSet<TileType> _monsterMovementTiles = new HashSet<TileType>() {
-    TileType.Empty,
-    TileType.Entrance
-  };
 
   // interface
-  public bool CanMoveTo(Vector2 position) {
+  public bool CanMoveTo(Vector2 position, HashSet<TileType> permittedMovementTiles) {
     TileType tileType;
-    return (_map.TryGetValue(position, out tileType)) && (_playerMovementTiles.Contains(tileType));
+    return (_map.TryGetValue(position, out tileType)) && (permittedMovementTiles.Contains(tileType));
   }
-
-  public bool MonstersCanMoveTo(Vector2 position) {
-    TileType tileType;
-    return (_map.TryGetValue(position, out tileType)) && (_monsterMovementTiles.Contains(tileType));
-  }
-
+  
   public bool IsGoal(Vector2 position) {
     TileType tileType;
     return (_map.TryGetValue(position, out tileType)) && (tileType == TileType.Goal);

@@ -22,4 +22,9 @@ public static class Utils {
   public static float GetCharacterSpeed(float pathLength) {
     return (pathLength * WORLD_SCALE) / MOVEMENT_TIME;
   }
+
+  public static Vector2 GetDirectionRelativeToGameObjectForwards(Vector2 direction, GameObject gameObject) {
+    Vector3 worldDirection = direction.y * gameObject.transform.forward + direction.x * gameObject.transform.right;
+    return new Vector2(worldDirection.x, worldDirection.z);
+  }
 }

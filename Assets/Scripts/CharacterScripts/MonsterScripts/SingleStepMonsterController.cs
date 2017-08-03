@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 
-public class StandardMonsterController : MonsterController {
+public class SingleStepMonsterController : MonsterController {
   // set in editor
-  public Vector2 _direction;
+  public Vector2 _startDirection;
   public ChangeDirectionMode _changeDirectionMode;
   public int _numberOfDirectionUpdatesTried;
+
+  // state
+  private Vector2 _direction;
+
+  // intialisation
+  protected override void Awake() {
+    base.Awake();
+    _direction = Utils.GetDirectionRelativeToGameObjectForwards(_startDirection, gameObject);
+  }
 
   // implementation
   protected override void CreatePath(Vector2 playerTargetPosition) {

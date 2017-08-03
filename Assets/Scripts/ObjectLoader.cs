@@ -17,7 +17,7 @@ public class ObjectLoader {
     new Tile(GetTilePrefab("Box"), new Vector2(1, 4), TileType.Obstacle)
   };
   private Monster[] _monsters = new Monster[] {
-    new Monster(GetMonsterPrefab("Udwin"), new Vector2(0, 4))
+    new Monster(GetMonsterPrefab("Udwin"), new Vector2(0, 4), Quaternion.LookRotation(new Vector3(0, 0, -1)))
   };
   private Player _player = new Player(GetPlayerPrefab("Sam"));
   private Tile _entranceTile;
@@ -49,12 +49,12 @@ public class ObjectLoader {
 
   private void LoadMonsters() {
     foreach (Monster monster in _monsters) {
-      if (monster.GameObject == null || monster.Position == null) {
-        Debug.Log("Error: Failed to load monster with properties: GameObject = " + monster.GameObject + ", Position = " + monster.Position);
+      if (monster.GameObject == null || monster.Position == null || monster.Rotation == null) {
+        Debug.Log("Error: Failed to load monster with properties: GameObject = " + monster.GameObject + ", Position = " + monster.Position + ", Rotation = " + monster.Rotation);
         continue;
       }
 
-      Object.Instantiate(monster.GameObject, Utils.ConvertToWorldPosition(monster.Position), monster.GameObject.transform.rotation);
+      Object.Instantiate(monster.GameObject, Utils.ConvertToWorldPosition(monster.Position), monster.Rotation);
     }
   }
 
@@ -104,10 +104,12 @@ public struct Tile {
 public struct Monster {
   public GameObject GameObject;
   public Vector2 Position;
+  public Quaternion Rotation;
 
-  public Monster(GameObject gameObject, Vector2 position) {
+  public Monster(GameObject gameObject, Vector2 position, Quaternion rotation) {
     GameObject = gameObject;
     Position = position;
+    Rotation = rotation;
   }
 }
 

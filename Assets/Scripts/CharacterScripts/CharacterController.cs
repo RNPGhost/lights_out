@@ -15,6 +15,7 @@ public class CharacterController : MonoBehaviour {
   private Queue<Vector2> _path = new Queue<Vector2>();
   private float _pathLength = 0;
   private Vector2 _currentTarget;
+  private HashSet<TileType> _permittedMovementTiles;
 
   // interface
   public void Move(Vector2 playerTargetPosition) {
@@ -31,6 +32,10 @@ public class CharacterController : MonoBehaviour {
     StepAlongPath();
   }
 
+  public virtual bool CanMoveTo(Vector2 position) {
+    return GetMap().CanMoveTo(position, GetPermittedMovementTiles());
+  }
+
   // child interface
   protected virtual void CreatePath(Vector2 playerTargetPosition) { }
 
@@ -40,8 +45,14 @@ public class CharacterController : MonoBehaviour {
     _gameController.MovementComplete(this);
   }
 
-  protected virtual bool CanMoveTo(Vector2 position) {
-    return GetMap().CanMoveTo(position);
+  protected virtual HashSet<TileType> GetPermittedMovementTiles() {
+    if (_permittedMovementTiles == null) {
+      _permittedMovementTiles = new HashSet<TileType>() {
+        TileType.Empty,
+        TileType.Entrance
+      };
+    }
+    return _permittedMovementTiles;
   }
 
   protected void AddTargetToPath(Vector2 target) {

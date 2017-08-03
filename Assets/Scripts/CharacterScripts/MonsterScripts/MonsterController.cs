@@ -13,10 +13,6 @@ public class MonsterController : CharacterController {
   }
 
   // implementation
-  protected override bool CanMoveTo(Vector2 position) {
-    return GetMap().MonstersCanMoveTo(position);
-  }
-
   protected override void MovementStarted() {
     base.MovementStarted();
     _monsterVFX.SetActive(_visibleWhenMoving);

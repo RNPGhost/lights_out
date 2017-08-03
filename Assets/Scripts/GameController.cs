@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour {
   }
 
   public void MoveCharacters(Vector2 playerTargetPosition) {
-    if (_state == GameState.WaitingForMove && _map.CanMoveTo(playerTargetPosition)) {
+    if (_state == GameState.WaitingForMove && _playerController.CanMoveTo(playerTargetPosition)) {
       _state = GameState.Moving;
       _playerTargetPosition = playerTargetPosition;
       if (_map.IsGoal(playerTargetPosition)) {
