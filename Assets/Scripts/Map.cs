@@ -2,16 +2,29 @@
 using UnityEngine;
 
 public class Map {
-
   // state
   private Dictionary<Vector2, TileType> _map = new Dictionary<Vector2, TileType>();
   private Vector2 _topRightCorner;
   private Vector2 _bottomLeftCorner;
+  private HashSet<TileType> _playerMovementTiles = new HashSet<TileType>() {
+    TileType.Empty,
+    TileType.Entrance,
+    TileType.Goal
+  };
+  private HashSet<TileType> _monsterMovementTiles = new HashSet<TileType>() {
+    TileType.Empty,
+    TileType.Entrance
+  };
 
   // interface
   public bool CanMoveTo(Vector2 position) {
     TileType tileType;
-    return (_map.TryGetValue(position, out tileType)) && (tileType != TileType.Obstacle);
+    return (_map.TryGetValue(position, out tileType)) && (_playerMovementTiles.Contains(tileType));
+  }
+
+  public bool MonstersCanMoveTo(Vector2 position) {
+    TileType tileType;
+    return (_map.TryGetValue(position, out tileType)) && (_monsterMovementTiles.Contains(tileType));
   }
 
   public bool IsGoal(Vector2 position) {
@@ -24,9 +37,10 @@ public class Map {
       UpdateMapSize(position);
       _map.Add(position, tileType);
       return true;
+    } else {
+      Debug.Log("Error: Failed to add tile to map, as there is already a tile in position " + position);
+      return false;
     }
-
-    return false;
   }
 
   // implementation

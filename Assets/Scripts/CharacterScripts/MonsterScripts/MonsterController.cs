@@ -13,8 +13,8 @@ public class MonsterController : CharacterController {
   }
 
   // implementation
-  protected override void CreatePath(Vector2 playerTargetPosition) {
-    AddTargetToPath(GetPosition() + new Vector2(0, -1));
+  protected override bool CanMoveTo(Vector2 position) {
+    return GetMap().MonstersCanMoveTo(position);
   }
 
   protected override void MovementStarted() {

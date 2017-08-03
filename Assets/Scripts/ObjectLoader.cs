@@ -8,6 +8,8 @@ public class ObjectLoader {
   private Tile[] _tiles = new Tile[] {
     new Tile(GetTilePrefab("Entrance"), new Vector2(0, 0), TileType.Entrance),
     new Tile(GetTilePrefab("Goal"), new Vector2(0, 5), TileType.Goal),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 1), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 2), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 1), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 2), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 3), TileType.Empty),

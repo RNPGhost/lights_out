@@ -40,6 +40,10 @@ public class CharacterController : MonoBehaviour {
     _gameController.MovementComplete(this);
   }
 
+  protected virtual bool CanMoveTo(Vector2 position) {
+    return GetMap().CanMoveTo(position);
+  }
+
   protected void AddTargetToPath(Vector2 target) {
     if (CanMoveTo(target)) {
       _path.Enqueue(target);
@@ -48,8 +52,8 @@ public class CharacterController : MonoBehaviour {
     }
   }
 
-  protected bool CanMoveTo(Vector2 position) {
-    return _map.CanMoveTo(position);
+  protected Map GetMap() {
+    return _map;
   }
 
   // initialisation
