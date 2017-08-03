@@ -2,7 +2,7 @@
 
 public class InputController : MonoBehaviour {
   // references
-  public GameController _gameController;
+  private GameController _gameController;
   
   // initialisation
   public void Awake() {

@@ -35,7 +35,7 @@ public class GameObjectMover {
       _gameObject.transform.position = Vector3.MoveTowards(_gameObject.transform.position, _target, step);
       if (_gameObject.transform.position == _target) {
         _moveTowardsTarget = false;
-        _characterController.MovementComplete();
+        _characterController.StepComplete();
       }
     }
   }

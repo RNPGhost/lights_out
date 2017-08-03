@@ -2,6 +2,9 @@
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
+  // set in editor
+  public float _relativeSpeed;
+
   // state
   private Vector2 _characterPosition;
   private Queue<Vector2> _path = new Queue<Vector2>();
@@ -15,6 +18,7 @@ public class CharacterController : MonoBehaviour {
 
   // interface
   public void Move(Vector2 playerTargetPosition) {
+    MovementStarted();
     CreatePath(playerTargetPosition);
     StepAlongPath();
   }
@@ -23,12 +27,18 @@ public class CharacterController : MonoBehaviour {
     return _characterPosition;
   }
 
-  public void MovementComplete() {
+  public void StepComplete() {
     StepAlongPath();
   }
 
   // child interface
   protected virtual void CreatePath(Vector2 playerTargetPosition) { }
+
+  protected virtual void MovementStarted() { }
+
+  protected virtual void MovementComplete() {
+    _gameController.MovementComplete(this);
+  }
 
   protected void AddTargetToPath(Vector2 target) {
     if (CanMoveTo(target)) {
@@ -55,11 +65,11 @@ public class CharacterController : MonoBehaviour {
   private void StepAlongPath() {
     if (_path.Count > 0) {
       Vector2 target = _path.Dequeue();
-      _characterObjectMover.MoveTo(target, Utils.GetCharacterSpeed(_pathLength));
+      _characterObjectMover.MoveTo(target, _relativeSpeed * Utils.GetCharacterSpeed(_pathLength));
       _characterPosition = target;
     } else {
       ClearPath();
-      _gameController.MovementComplete(this);
+      MovementComplete();
     }
   }
 
