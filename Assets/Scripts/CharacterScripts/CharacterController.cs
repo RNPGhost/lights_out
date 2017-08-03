@@ -5,16 +5,16 @@ public class CharacterController : MonoBehaviour {
   // set in editor
   public float _relativeSpeed;
 
+  // references
+  private Map _map;
+  private GameController _gameController;
+  private GameObjectMover _characterObjectMover;
+
   // state
   private Vector2 _characterPosition;
   private Queue<Vector2> _path = new Queue<Vector2>();
   private float _pathLength = 0;
   private Vector2 _currentTarget;
-
-  // references
-  private Map _map;
-  private GameController _gameController;
-  private GameObjectMover _characterObjectMover;
 
   // interface
   public void Move(Vector2 playerTargetPosition) {
@@ -73,7 +73,7 @@ public class CharacterController : MonoBehaviour {
     }
   }
 
-  private void Update() {
+  protected virtual void Update() {
     _characterObjectMover.Update();
   }
 

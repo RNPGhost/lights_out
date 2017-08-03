@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
 public class GameObjectMover {
-  //constants
-  public const float WORLD_SCALE = 2;
-
   // references
   private CharacterController _characterController;
   private GameObject _gameObject;
@@ -12,21 +9,12 @@ public class GameObjectMover {
   private bool _moveTowardsTarget = false;
   private Vector3 _target;
   public float _speed;
-
+  
   // interface
-  public GameObjectMover(CharacterController characterController, GameObject gameObject) {
-    _characterController = characterController;
-    _gameObject = gameObject;
-  }
-
   public void MoveTo(Vector2 position, float speed) {
-    _speed = speed * WORLD_SCALE;
+    _speed = speed;
     _target = Utils.ConvertToWorldPosition(position);
     _moveTowardsTarget = true;
-  }
-
-  public void MoveToStartPosition(Vector2 startPosition) {
-    _gameObject.transform.position = Utils.ConvertToWorldPosition(startPosition);
   }
 
   public void Update() {
@@ -38,5 +26,11 @@ public class GameObjectMover {
         _characterController.StepComplete();
       }
     }
+  }
+
+  // initialisation
+  public GameObjectMover(CharacterController characterController, GameObject gameObject) {
+    _characterController = characterController;
+    _gameObject = gameObject;
   }
 }

@@ -14,13 +14,10 @@ public class ObjectLoader {
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 4), TileType.Empty),
     new Tile(GetTilePrefab("Box"), new Vector2(1, 4), TileType.Obstacle)
   };
-
   private Monster[] _monsters = new Monster[] {
     new Monster(GetMonsterPrefab("Udwin"), new Vector2(0, 4))
   };
-
   private Player _player = new Player(GetPlayerPrefab("Sam"));
-
   private Tile _entranceTile;
 
   // interface
@@ -34,6 +31,11 @@ public class ObjectLoader {
   // implementation
   private void LoadTiles() {
     foreach (Tile tile in _tiles) {
+      if (tile.GameObject == null || tile.Position == null) {
+        Debug.Log("Error: Failed to load tile with properties: GameObject = " + tile.GameObject + ", Position = " + tile.Position + ", TileType = " + tile.TileType);
+        continue;
+      }
+
       if (_map.AddObjectToMap(tile.Position, tile.TileType)) {
         Object.Instantiate(tile.GameObject, Utils.ConvertToWorldPosition(tile.Position), tile.GameObject.transform.rotation);
         if (tile.TileType == TileType.Entrance) {
@@ -45,14 +47,24 @@ public class ObjectLoader {
 
   private void LoadMonsters() {
     foreach (Monster monster in _monsters) {
+      if (monster.GameObject == null || monster.Position == null) {
+        Debug.Log("Error: Failed to load monster with properties: GameObject = " + monster.GameObject + ", Position = " + monster.Position);
+        continue;
+      }
+
       Object.Instantiate(monster.GameObject, Utils.ConvertToWorldPosition(monster.Position), monster.GameObject.transform.rotation);
     }
   }
 
   private void LoadPlayer() {
-    if (_entranceTile.GameObject != null) {
-      Object.Instantiate(_player.GameObject, Utils.ConvertToWorldPosition(_entranceTile.Position), _entranceTile.GameObject.transform.rotation);
+    if (_entranceTile.GameObject == null) {
+      Debug.Log("Error: Failed to load player as a valid entrance tile was not found in list of tiles: GameObject = " + _entranceTile.GameObject);
     }
+    if (_player.GameObject == null) {
+      Debug.Log("Error: Failed to load player with properties: GameObject = " + _player.GameObject);
+    }
+
+    Object.Instantiate(_player.GameObject, Utils.ConvertToWorldPosition(_entranceTile.Position), _entranceTile.GameObject.transform.rotation);
   }
 
   private static GameObject GetMonsterPrefab(string name) {
