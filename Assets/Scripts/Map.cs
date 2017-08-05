@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Map {
@@ -10,9 +11,8 @@ public class Map {
   // interface
   public bool CanMoveTo(Vector2 position, HashSet<TileType> permittedMovementTiles) {
     TileType tileType;
-    bool positionFoundInMap = _map.TryGetValue(position, out tileType);
-    bool tileTypeIsPermittedForMovement = permittedMovementTiles.Contains(tileType);
-    return positionFoundInMap && tileTypeIsPermittedForMovement;
+    Vector2 roundedPosition = new Vector2((float) Math.Round(position.x), (float) Math.Round(position.y));
+    return _map.TryGetValue(roundedPosition, out tileType) && permittedMovementTiles.Contains(tileType);
   }
   
   public bool IsGoal(Vector2 position) {

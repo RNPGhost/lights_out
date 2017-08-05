@@ -34,10 +34,10 @@ public class ObjectLoader {
     new Tile(GetTilePrefab("Empty"), new Vector2(2, 5), TileType.Empty)
   };
   private Monster[] _monsters = new Monster[] {
-    //new Monster(GetMonsterPrefab("SLKnight"), new Vector2(1, 5), Quaternion.LookRotation(new Vector3(0, 0, -1))),
-    //new Monster(GetMonsterPrefab("SMonster"), new Vector2(-1, 5), Quaternion.LookRotation(new Vector3(-1, 0, 0))),
+    new Monster(GetMonsterPrefab("RLKnight"), new Vector2(1, 5), Quaternion.LookRotation(new Vector3(0, 0, -1))),
+    new Monster(GetMonsterPrefab("SMonster"), new Vector2(-1, 5), Quaternion.LookRotation(new Vector3(-1, 0, 0))),
     new Monster(GetMonsterPrefab("SMonster"), new Vector2(1, 3), Quaternion.LookRotation(new Vector3(0, 0, -1))),
-    new Monster(GetMonsterPrefab("LMonster"), new Vector2(2, 1), Quaternion.LookRotation(new Vector3(-1, 0, 0)))
+    new Monster(GetMonsterPrefab("RMonster"), new Vector2(2, 2), Quaternion.LookRotation(new Vector3(0, 0, -1)))
   };
   private Player _player = new Player(GetPlayerPrefab("Sam"));
   private Tile _entranceTile;
