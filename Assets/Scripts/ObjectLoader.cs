@@ -6,18 +6,38 @@ public class ObjectLoader {
 
   // state
   private Tile[] _tiles = new Tile[] {
+    new Tile(GetTilePrefab("Empty"), new Vector2(-2, 1), TileType.Empty),
+    new Tile(GetTilePrefab("Box"), new Vector2(-2, 2), TileType.Obstacle),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-2, 3), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-2, 4), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-2, 5), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-1, 1), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-1, 2), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-1, 3), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-1, 4), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(-1, 5), TileType.Empty),
     new Tile(GetTilePrefab("Entrance"), new Vector2(0, 0), TileType.Entrance),
-    new Tile(GetTilePrefab("Goal"), new Vector2(0, 5), TileType.Goal),
-    new Tile(GetTilePrefab("Empty"), new Vector2(1, 1), TileType.Empty),
-    new Tile(GetTilePrefab("Empty"), new Vector2(1, 2), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 1), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 2), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(0, 3), TileType.Empty),
-    new Tile(GetTilePrefab("Empty"), new Vector2(0, 4), TileType.Empty),
-    new Tile(GetTilePrefab("Box"), new Vector2(1, 4), TileType.Obstacle)
+    new Tile(GetTilePrefab("Box"), new Vector2(0, 4), TileType.Obstacle),
+    new Tile(GetTilePrefab("Goal"), new Vector2(0, 5), TileType.Goal),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 1), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 2), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 3), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 4), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(1, 5), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(2, 1), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(2, 2), TileType.Empty),
+    new Tile(GetTilePrefab("Empty"), new Vector2(2, 3), TileType.Empty),
+    new Tile(GetTilePrefab("Box"), new Vector2(2, 4), TileType.Obstacle),
+    new Tile(GetTilePrefab("Empty"), new Vector2(2, 5), TileType.Empty)
   };
   private Monster[] _monsters = new Monster[] {
-    new Monster(GetMonsterPrefab("Udwin"), new Vector2(0, 4), Quaternion.LookRotation(new Vector3(0, 0, -1)))
+    //new Monster(GetMonsterPrefab("SLKnight"), new Vector2(1, 5), Quaternion.LookRotation(new Vector3(0, 0, -1))),
+    //new Monster(GetMonsterPrefab("SMonster"), new Vector2(-1, 5), Quaternion.LookRotation(new Vector3(-1, 0, 0))),
+    new Monster(GetMonsterPrefab("SMonster"), new Vector2(1, 3), Quaternion.LookRotation(new Vector3(0, 0, -1))),
+    new Monster(GetMonsterPrefab("LMonster"), new Vector2(2, 1), Quaternion.LookRotation(new Vector3(-1, 0, 0)))
   };
   private Player _player = new Player(GetPlayerPrefab("Sam"));
   private Tile _entranceTile;

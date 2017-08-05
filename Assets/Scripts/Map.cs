@@ -10,7 +10,9 @@ public class Map {
   // interface
   public bool CanMoveTo(Vector2 position, HashSet<TileType> permittedMovementTiles) {
     TileType tileType;
-    return (_map.TryGetValue(position, out tileType)) && (permittedMovementTiles.Contains(tileType));
+    bool positionFoundInMap = _map.TryGetValue(position, out tileType);
+    bool tileTypeIsPermittedForMovement = permittedMovementTiles.Contains(tileType);
+    return positionFoundInMap && tileTypeIsPermittedForMovement;
   }
   
   public bool IsGoal(Vector2 position) {
