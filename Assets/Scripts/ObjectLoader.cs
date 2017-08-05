@@ -53,7 +53,7 @@ public class ObjectLoader {
   // implementation
   private void LoadTiles() {
     foreach (Tile tile in _tiles) {
-      if (tile.GameObject == null || tile.Position == null) {
+      if (tile.GameObject == null) {
         Debug.Log("Error: Failed to load tile with properties: GameObject = " + tile.GameObject + ", Position = " + tile.Position + ", TileType = " + tile.TileType);
         continue;
       }
@@ -69,7 +69,7 @@ public class ObjectLoader {
 
   private void LoadMonsters() {
     foreach (Monster monster in _monsters) {
-      if (monster.GameObject == null || monster.Position == null || monster.Rotation == null) {
+      if (monster.GameObject == null) {
         Debug.Log("Error: Failed to load monster with properties: GameObject = " + monster.GameObject + ", Position = " + monster.Position + ", Rotation = " + monster.Rotation);
         continue;
       }
