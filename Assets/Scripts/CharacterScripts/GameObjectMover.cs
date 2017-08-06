@@ -14,6 +14,7 @@ public class GameObjectMover {
   public void MoveTo(Vector2 position, float speed) {
     _speed = speed;
     _target = Utils.ConvertToWorldPosition(position);
+    _gameObject.transform.rotation = Quaternion.LookRotation(_target - _gameObject.transform.position);
     _moveTowardsTarget = true;
   }
 
