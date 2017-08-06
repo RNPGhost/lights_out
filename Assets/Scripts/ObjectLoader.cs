@@ -12,7 +12,6 @@ public class ObjectLoader {
   private const string TILES_PATH = "Tiles/";
 
   // state
-  private Player _player;
   private Tile _entranceTile;
 
   // interface
@@ -24,73 +23,67 @@ public class ObjectLoader {
   // implementation
   private void LoadLevelObjects(string levelName) {
     string jsonText = Resources.Load<TextAsset>(LEVELS_PATH + levelName).text;
-    LoadedGameObjects loadedObjectContainer = JsonUtility.FromJson<LoadedGameObjects>(jsonText);
-    foreach (LoadedGameObject loadedObject in loadedObjectContainer.objects) {
-      switch (loadedObject.objectType) {
-        case "Tile":
-          LoadTile(new Tile(loadedObject));
-          break;
-        case "Monster":
-          LoadMonster(new Monster(loadedObject));
-          break;
-        case "Player":
-          if (_player.prefabName != null) {
-            Debug.Log("Error: Multiple players loaded");
-          } else {
-            _player = new Player(loadedObject);
-          }
-          break;
-        default:
-          Debug.Log("Error: Loaded game object of unknown type: " + loadedObject.objectType);
-          break;
-      }
-    }
-
-    LoadPlayer();
+    GameObjectsContainer loadedObjectContainer = JsonUtility.FromJson<GameObjectsContainer>(jsonText);
+    LoadTiles(loadedObjectContainer.tiles);
+    LoadMonsters(loadedObjectContainer.monsters);
+    LoadPlayer(loadedObjectContainer.player);
   }
 
-  private void LoadTile(Tile tile) {
-    GameObject tilePrefab = LoadPrefab(TILES_PATH + tile.prefabName);
-    if (tilePrefab == null) {
-      return;
-    }
+  private void LoadTiles(Tile[] tiles) {
+    foreach (Tile tile in tiles) {
+      GameObject tilePrefab = LoadPrefab(TILES_PATH + tile.prefabName);
+      if (tilePrefab == null) {
+        continue;
+      }
 
-    if (_map.AddObjectToMap(tile.position, tile.tileType)) {
-      UnityEngine.Object.Instantiate(tilePrefab, Utils.ConvertToWorldPosition(tile.position), tilePrefab.transform.rotation);
+      TileType tileType;
+      try {
+        tileType = (TileType)Enum.Parse(typeof(TileType), tile.tileType);
+      }
+      catch {
+        Debug.Log("Error: Failed to load tile " + tile.tileType + " is not a valid tile type");
+        continue;
+      }
 
-      if (tile.tileType == TileType.Entrance) {
-        if (_entranceTile.prefabName != null) {
-          Debug.Log("Error: Multiple entrance tiles loaded");
-        } else {
-          _entranceTile = tile;
+      if (_map.AddObjectToMap(tile.position, tileType)) {
+        UnityEngine.Object.Instantiate(tilePrefab, Utils.ConvertToWorldPosition(tile.position), Utils.LookRotation(tile.direction));
+
+        if (tileType == TileType.Entrance) {
+          if (_entranceTile.prefabName != null) {
+            Debug.Log("Error: Multiple entrance tiles loaded");
+          } else {
+            _entranceTile = tile;
+          }
         }
       }
     }
   }
 
-  private void LoadMonster(Monster monster) {
-    GameObject monsterPrefab = LoadPrefab(MONSTERS_PATH + monster.prefabName);
-    if (monsterPrefab == null) {
-      return;
-    }
+  private void LoadMonsters(Monster[] monsters) {
+    foreach (Monster monster in monsters) {
+      GameObject monsterPrefab = LoadPrefab(MONSTERS_PATH + monster.prefabName);
+      if (monsterPrefab == null) {
+        continue;
+      }
 
-    UnityEngine.Object.Instantiate(monsterPrefab, Utils.ConvertToWorldPosition(monster.position), monster.rotation);
+      UnityEngine.Object.Instantiate(monsterPrefab, Utils.ConvertToWorldPosition(monster.position), Utils.LookRotation(monster.direction));
+    }
   }
 
-  private void LoadPlayer() {
+  private void LoadPlayer(Player player) {
     if (_entranceTile.prefabName == null) {
       Debug.Log("Error: Failed to load player as no valid entrance tile was loaded");
     }
-    if (_player.prefabName == null) {
+    if (player.prefabName == null) {
       Debug.Log("Error: Failed to load player as no object of type player was loaded");
     }
 
-    GameObject playerPrefab = LoadPrefab(PLAYERS_PATH + _player.prefabName);
+    GameObject playerPrefab = LoadPrefab(PLAYERS_PATH + player.prefabName);
     if (playerPrefab == null) {
       return;
     }
 
-    UnityEngine.Object.Instantiate(playerPrefab, Utils.ConvertToWorldPosition(_entranceTile.position), _entranceTile.rotation);
+    UnityEngine.Object.Instantiate(playerPrefab, Utils.ConvertToWorldPosition(_entranceTile.position), Utils.LookRotation(_entranceTile.direction));
   }
 
   private static GameObject LoadPrefab(string path) {
@@ -100,59 +93,28 @@ public class ObjectLoader {
 }
 
 [Serializable]
-public struct LoadedGameObjects {
-  public LoadedGameObject[] objects;
+public struct GameObjectsContainer {
+  public Tile[] tiles;
+  public Monster[] monsters;
+  public Player player;
 }
 
 [Serializable]
-public struct LoadedGameObject {
-  public string objectType;
-  public string prefabName;
-  public Vector2 position;
-  public Vector2 direction;
-  public string tileType;
-
-  public Quaternion GetRotation() {
-    return Quaternion.LookRotation(Utils.ConvertToWorldDirection(direction));
-  }
-}
-
 public struct Player {
   public string prefabName;
-
-  public Player(LoadedGameObject loadedGameObject) {
-    prefabName = loadedGameObject.prefabName;
-  }
 }
 
+[Serializable]
 public struct Monster {
   public string prefabName;
   public Vector2 position;
-  public Quaternion rotation;
-
-  public Monster(LoadedGameObject loadedGameObject) {
-    prefabName = loadedGameObject.prefabName;
-    position = loadedGameObject.position;
-    rotation = loadedGameObject.GetRotation();
-  }
+  public Vector2 direction;
 }
 
+[Serializable]
 public struct Tile {
   public string prefabName;
+  public string tileType;
   public Vector2 position;
-  public Quaternion rotation;
-  public TileType tileType;
-
-  public Tile(LoadedGameObject loadedGameObject) {
-    prefabName = loadedGameObject.prefabName;
-    position = loadedGameObject.position;
-    rotation = loadedGameObject.GetRotation();
-    try {
-      tileType = (TileType)Enum.Parse(typeof(TileType), loadedGameObject.tileType);
-    }
-    catch {
-      Debug.Log("Error: Failed to load tile " + loadedGameObject.tileType + " is not a valid tile type");
-      tileType = TileType.Empty;
-    }
-  }
+  public Vector2 direction;
 }

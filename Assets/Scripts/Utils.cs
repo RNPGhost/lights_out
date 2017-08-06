@@ -28,11 +28,15 @@ public static class Utils {
     return ConvertToMapDirection(worldDirection);
   }
 
-  public static Vector3 ConvertToWorldDirection(Vector2 mapDirection) {
+  public static Quaternion LookRotation(Vector2 mapDirection) {
+    return Quaternion.LookRotation(ConvertToWorldDirection(mapDirection));
+  }
+
+  private static Vector3 ConvertToWorldDirection(Vector2 mapDirection) {
     return new Vector3(mapDirection.x, 0, mapDirection.y);
   }
 
-  public static Vector2 ConvertToMapDirection(Vector3 worldDirection) {
+  private static Vector2 ConvertToMapDirection(Vector3 worldDirection) {
     return new Vector2(worldDirection.x, worldDirection.z);
   }
 }
