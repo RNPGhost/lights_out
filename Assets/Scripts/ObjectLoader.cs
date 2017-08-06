@@ -30,16 +30,16 @@ public class ObjectLoader {
     new Tile(GetTilePrefab("Empty"), new Vector2(2, 1), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(2, 2), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(2, 3), TileType.Empty),
-    new Tile(GetTilePrefab("Box"), new Vector2(2, 4), TileType.Obstacle),
+    new Tile(GetTilePrefab("Empty"), new Vector2(2, 4), TileType.Empty),
     new Tile(GetTilePrefab("Empty"), new Vector2(2, 5), TileType.Empty)
   };
   private Monster[] _monsters = new Monster[] {
-    new Monster(GetMonsterPrefab("RLKnight"), new Vector2(1, 5), Quaternion.LookRotation(new Vector3(0, 0, -1))),
-    new Monster(GetMonsterPrefab("SMonster"), new Vector2(-1, 5), Quaternion.LookRotation(new Vector3(-1, 0, 0))),
-    new Monster(GetMonsterPrefab("SMonster"), new Vector2(1, 3), Quaternion.LookRotation(new Vector3(0, 0, -1))),
-    new Monster(GetMonsterPrefab("RMonster"), new Vector2(2, 2), Quaternion.LookRotation(new Vector3(0, 0, -1)))
+    new Monster(GetMonsterPrefab("Bat"), new Vector2(-2, 4), Quaternion.LookRotation(new Vector3(1, 0, 0))),
+    new Monster(GetMonsterPrefab("Ghost"), new Vector2(-1, 5), Quaternion.LookRotation(new Vector3(-1, 0, 0))),
+    new Monster(GetMonsterPrefab("Ghost"), new Vector2(1, 3), Quaternion.LookRotation(new Vector3(0, 0, -1))),
+    new Monster(GetMonsterPrefab("Ghost"), new Vector2(2, 4), Quaternion.LookRotation(new Vector3(0, 0, -1)))
   };
-  private Player _player = new Player(GetPlayerPrefab("Sam"));
+  private Player _player = new Player(GetPlayerPrefab("Rosie"));
   private Tile _entranceTile;
 
   // interface
@@ -105,7 +105,11 @@ public class ObjectLoader {
   }
 
   private static GameObject LoadPrefab(string path) {
-    return (GameObject)Resources.Load(path, typeof(GameObject));
+    GameObject gameObject = (GameObject)Resources.Load(path, typeof(GameObject));
+    if (gameObject == null) {
+      Debug.Log("Error: GameObject not found at path '" + path + "'");
+    }
+    return gameObject;
   }
 }
 
