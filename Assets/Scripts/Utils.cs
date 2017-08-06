@@ -23,8 +23,16 @@ public static class Utils {
     return (pathLength * WORLD_SCALE) / MOVEMENT_TIME;
   }
 
-  public static Vector2 GetDirectionRelativeToGameObjectForwards(Vector2 direction, GameObject gameObject) {
-    Vector3 worldDirection = direction.y * gameObject.transform.forward + direction.x * gameObject.transform.right;
+  public static Vector2 GetDirectionRelativeToGameObjectForwards(Vector2 mapDirection, GameObject gameObject) {
+    Vector3 worldDirection = mapDirection.y * gameObject.transform.forward + mapDirection.x * gameObject.transform.right;
+    return ConvertToMapDirection(worldDirection);
+  }
+
+  public static Vector3 ConvertToWorldDirection(Vector2 mapDirection) {
+    return new Vector3(mapDirection.x, 0, mapDirection.y);
+  }
+
+  public static Vector2 ConvertToMapDirection(Vector3 worldDirection) {
     return new Vector2(worldDirection.x, worldDirection.z);
   }
 }

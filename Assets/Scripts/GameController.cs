@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
   // set in editor
+  public string _levelName;
   public GameObject _levelUI;
   public GameObject _gameOverUI;
   public Text _gameOverText;
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour {
   private void Awake() {
     _state = GameState.WaitingForMove;
     _map = new Map();
-    new ObjectLoader(_map);
+    new ObjectLoader(_map, _levelName);
     _characterControllers = FindObjectsOfType<CharacterController>();
     _playerController = FindObjectOfType<PlayerController>();
   }
