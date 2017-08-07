@@ -5,6 +5,11 @@ public static class Utils {
   private const float WORLD_SCALE = 2;
   private const float MOVEMENT_TIME = 1;
 
+  // state
+  public static string _levelName;
+  public static string _levelSceneName = "level";
+  public static string _menuSceneName = "menu";
+
   // interface
   public static Vector3 ConvertToWorldPosition(Vector2 mapPosition) {
     float x = mapPosition.x * WORLD_SCALE;
