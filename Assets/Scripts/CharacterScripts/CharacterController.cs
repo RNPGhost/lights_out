@@ -68,7 +68,7 @@ public class CharacterController : MonoBehaviour {
   }
 
   // initialisation
-  protected virtual void Awake() {
+  protected virtual void Start() {
     _characterPosition = Utils.ConvertToMapPosition(gameObject.transform.position);
     ClearPath();
     _gameController = FindObjectOfType<GameController>();

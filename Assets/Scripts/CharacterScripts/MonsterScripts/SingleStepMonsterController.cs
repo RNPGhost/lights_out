@@ -10,8 +10,8 @@ public class SingleStepMonsterController : MonsterController {
   private Vector2 _direction;
 
   // intialisation
-  protected override void Awake() {
-    base.Awake();
+  protected override void Start() {
+    base.Start();
     _direction = Utils.GetDirectionRelativeToGameObjectForwards(_startDirection, gameObject);
   }
 

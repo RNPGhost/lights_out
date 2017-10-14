@@ -7,8 +7,8 @@ public class MonsterController : CharacterController {
   public GameObject _monsterVFX;
 
   // initialisation
-  protected override void Awake() {
-    base.Awake();
+  protected override void Start() {
+    base.Start();
     _monsterVFX.SetActive(_visibleWhenStationary);
   }
 
