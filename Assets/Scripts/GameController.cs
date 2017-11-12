@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour {
   private GameState _state;
   private CharacterController[] _characterControllers;
   private HashSet<CharacterController> _movingCharacters = new HashSet<CharacterController>();
-  private Vector2 _playerTargetPosition;
   private PlayerController _playerController;
 
   // interface
@@ -32,7 +31,6 @@ public class GameController : MonoBehaviour {
   public void MoveCharacters(Vector2 playerTargetPosition) {
     if (_state == GameState.WaitingForMove && _playerController.CanMoveTo(playerTargetPosition)) {
       _state = GameState.Moving;
-      _playerTargetPosition = playerTargetPosition;
       if (_map.IsGoal(playerTargetPosition)) {
         _state = GameState.GameOver;
         // monsters don't move if the player will reach the goal this turn
@@ -51,13 +49,16 @@ public class GameController : MonoBehaviour {
   }
 
   public void MovementComplete(CharacterController characterController) {
-    if (characterController is MonsterController && characterController.GetPosition() == _playerTargetPosition) {
-      PlayerCaught((MonsterController) characterController);
-    }
-    
     _movingCharacters.Remove(characterController);
     if (_movingCharacters.Count == 0 && _state == GameState.Moving) {
       _state = GameState.WaitingForMove;
+    }
+  }
+
+  public void PlayerCaught(MonsterController monsterController) {
+    if (_state != GameState.GameOver) {
+      _state = GameState.GameOver;
+      SwitchToGameOverUI(won: false);
     }
   }
 
@@ -71,13 +72,6 @@ public class GameController : MonoBehaviour {
   }
 
   // implementation
-  private void PlayerCaught(MonsterController monsterController) {
-    if (_state != GameState.GameOver) {
-      _state = GameState.GameOver;
-      SwitchToGameOverUI(won: false);
-    }
-  }
-
   private void SwitchToGameOverUI(bool won) {
     _gameOverText.text = won ? _winText : _lossText;
     _levelUI.SetActive(false);

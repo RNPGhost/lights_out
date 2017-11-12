@@ -9,8 +9,13 @@ public static class Utils {
   public static string _levelName;
   public static string _levelSceneName = "level";
   public static string _menuSceneName = "menu";
+  public static string _playerTag = "Player";
 
   // interface
+  public static string GetPlayerTag() {
+    return _playerTag;
+  }
+
   public static Vector3 ConvertToWorldPosition(Vector2 mapPosition) {
     float x = mapPosition.x * WORLD_SCALE;
     float y = 0;

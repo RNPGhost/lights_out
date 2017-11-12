@@ -6,10 +6,14 @@ public class MonsterController : CharacterController {
   public bool _visibleWhenStationary;
   public GameObject _monsterVFX;
 
+  // state
+  private GameController _gameController;
+
   // initialisation
   protected override void Start() {
     base.Start();
     _monsterVFX.SetActive(_visibleWhenStationary);
+    _gameController = FindObjectOfType<GameController>();
   }
 
   // implementation
@@ -21,5 +25,11 @@ public class MonsterController : CharacterController {
   protected override void MovementComplete() {
     base.MovementComplete();
     _monsterVFX.SetActive(_visibleWhenStationary);
+  }
+
+  void OnTriggerEnter(Collider collider) {
+    if (collider.gameObject.tag == Utils.GetPlayerTag()) {
+      _gameController.PlayerCaught(this);
+    }
   }
 }
