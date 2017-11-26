@@ -2,12 +2,18 @@
 using UnityEngine.SceneManagement;
 
 public class LoadLevelButtonController : MonoBehaviour {
-  // set in editor
-  public string _levelName;
-
   // interface
-  public void Clicked() {
-    Utils._levelName = _levelName;
+  public void SetLevelAndStart(string levelName) {
+    Utils._levelName = levelName;
+    LoadLevel();
+  }
+
+  public void RestartLevel() {
+    LoadLevel();
+  }
+
+  // implementation
+  private void LoadLevel() {
     SceneManager.LoadScene(Utils._levelSceneName);
   }
 }
