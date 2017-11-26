@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadLevelButtonController : MonoBehaviour {
   // interface
-  public void SetLevelAndStart(string levelName) {
-    Utils._levelName = levelName;
+  public void SetLevelAndStart(int levelNumber) {
+    Utils.SelectLevel(levelNumber);
     LoadLevel();
   }
 
@@ -14,6 +14,6 @@ public class LoadLevelButtonController : MonoBehaviour {
 
   // implementation
   private void LoadLevel() {
-    SceneManager.LoadScene(Utils._levelSceneName);
+    SceneManager.LoadScene(Utils.GetLevelSceneName());
   }
 }

@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour {
   private void Awake() {
     _state = GameState.WaitingForMove;
     _map = new Map();
-    new ObjectLoader(_map, Utils._levelName);
+    new ObjectLoader(_map, Utils.GetLevelName());
     _characterControllers = FindObjectsOfType<CharacterController>();
     _playerController = FindObjectOfType<PlayerController>();
   }
