@@ -1,0 +1,49 @@
+{
+"tiles":[
+    {"prefabName":"Empty", "position":{"x":-2, "y":0}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":-1, "y":0}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Entrance", "position":{"x":0, "y":0}, "tileType":"Entrance", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":1, "y":0}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":2, "y":0}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Empty", "position":{"x":-2, "y":1}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":-1, "y":1}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":0, "y":1}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":1, "y":1}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":2, "y":1}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Empty", "position":{"x":-2, "y":2}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":-1, "y":2}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":0, "y":2}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":1, "y":2}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":2, "y":2}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Box", "position":{"x":-2, "y":3}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":-1, "y":3}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":0, "y":3}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":1, "y":3}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":2, "y":3}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Empty", "position":{"x":-2, "y":4}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":-1, "y":4}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":0, "y":4}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":1, "y":4}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":2, "y":4}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Empty", "position":{"x":-2, "y":5}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":-1, "y":5}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":0, "y":5}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":1, "y":5}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":2, "y":5}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+
+    {"prefabName":"Empty", "position":{"x":-2, "y":6}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":-1, "y":6}, "tileType":"Empty", "direction":{"x":0, "y":1}},
+    {"prefabName":"Goal", "position":{"x":0, "y":6}, "tileType":"Goal", "direction":{"x":0, "y":1}},
+    {"prefabName":"Box", "position":{"x":1, "y":6}, "tileType":"Obstacle", "direction":{"x":0, "y":1}},
+    {"prefabName":"Empty", "position":{"x":2, "y":6}, "tileType":"Empty", "direction":{"x":0, "y":1}}],
+"monsters":[
+    {"prefabName":"Bat", "position":{"x":2, "y":0}, "direction":{"x":1, "y":0}},
+    {"prefabName":"Bat", "position":{"x":2, "y":6}, "direction":{"x":0, "y":-1}}],
+"player":
+    {"prefabName":"Rosie"}
+}	
