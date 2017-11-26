@@ -66,7 +66,11 @@ public class ObjectLoader {
         continue;
       }
 
-      UnityEngine.Object.Instantiate(monsterPrefab, Utils.ConvertToWorldPosition(monster.position), Utils.LookRotation(monster.direction));
+      GameObject monsterInstance = UnityEngine.Object.Instantiate(monsterPrefab, Utils.ConvertToWorldPosition(monster.position), Utils.LookRotation(monster.direction));
+      MonsterController monsterController = monsterInstance.GetComponent<MonsterController>();
+      if (monsterController is SingleStepMonsterController) {
+        ((SingleStepMonsterController) monsterController).SetStartDirection(monster.direction);
+      }
     }
   }
 

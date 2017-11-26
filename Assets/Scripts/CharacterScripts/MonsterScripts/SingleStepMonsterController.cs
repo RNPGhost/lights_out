@@ -2,17 +2,15 @@
 
 public class SingleStepMonsterController : MonsterController {
   // set in editor
-  public Vector2 _startDirection;
   public ChangeDirectionMode _changeDirectionMode;
   public int _numberOfDirectionUpdatesTried;
 
   // state
   private Vector2 _direction;
 
-  // intialisation
-  protected override void Start() {
-    base.Start();
-    _direction = Utils.GetDirectionRelativeToGameObjectForwards(_startDirection, gameObject);
+  // interface
+  public void SetStartDirection(Vector2 direction) {
+    _direction = direction;
   }
 
   // implementation

@@ -28,7 +28,7 @@
     {"prefabName":"Empty", "position":{"x":2, "y":5}, "tileType":"Empty", "direction":{"x":0, "y":1}}],
 "monsters":[
     {"prefabName":"Ghost", "position":{"x":1, "y":3}, "direction":{"x":0, "y":-1}},
-    {"prefabName":"Bat", "position":{"x":-2, "y":4}, "direction":{"x":1, "y":0}},
+    {"prefabName":"Bat", "position":{"x":-2, "y":4}, "direction":{"x":1, "y":-1}},
     {"prefabName":"Ghost", "position":{"x":2, "y":4}, "direction":{"x":0, "y":-1}},
     {"prefabName":"Ghost", "position":{"x":-1, "y":5}, "direction":{"x":-1, "y":0}}],
 "player":
