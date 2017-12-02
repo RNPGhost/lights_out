@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoadLevelButtonController : MonoBehaviour {
   // interface
   public void SetLevelAndStart(int levelNumber) {
-    Utils.SelectLevel(levelNumber);
+    SceneLoader.SelectLevel(levelNumber);
     LoadLevel();
   }
 
@@ -14,6 +13,6 @@ public class LoadLevelButtonController : MonoBehaviour {
 
   // implementation
   private void LoadLevel() {
-    SceneManager.LoadScene(Utils.GetLevelSceneName());
+    SceneLoader.LoadMenuScene();
   }
 }

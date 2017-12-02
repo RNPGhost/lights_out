@@ -1,48 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public static class Utils {
   // constants
   private const float WORLD_SCALE = 2;
   private const float MOVEMENT_TIME = 1;
-
-  // state
-  private static string _playerTag = "Player";
-  private static string _levelName;
-  private static string _levelSceneName = "level";
-  private static string _menuSceneName = "menu";
-  private static string[] _levelNames = {
-    "Maze",
-    "Gallery",
-    "Circuit",
-    "Corridors",
-    "TwosCompany",
-    "X-Wing",
-    "Batarang",
-    "Vendetta",
-    "Patrol",
-    "Batcave",
-  };
+  private const string _playerTag = "Player";
 
   // interface
-  public static void SelectLevel(int levelNumber) {
-    if (levelNumber > 0 && levelNumber <= _levelNames.Length) {
-      _levelName = _levelNames[levelNumber - 1];
-    }
-  }
-
-  public static string GetLevelName() {
-    return _levelName;
-  }
-
-  public static string GetLevelSceneName() {
-    return _levelSceneName;
-  }
-
-  public static string GetMenuSceneName() {
-    return _menuSceneName;
-  }
-
   public static string GetPlayerTag() {
     return _playerTag;
   }

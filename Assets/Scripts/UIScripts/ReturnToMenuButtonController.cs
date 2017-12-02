@@ -1,9 +1,8 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ReturnToMenuButtonController : MonoBehaviour {
   // interface
   public void Clicked() {
-    SceneManager.LoadScene(Utils.GetMenuSceneName());
+    SceneLoader.LoadLevelScene();
   }
 }
