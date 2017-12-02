@@ -13,6 +13,6 @@ public class LoadLevelButtonController : MonoBehaviour {
 
   // implementation
   private void LoadLevel() {
-    SceneLoader.LoadMenuScene();
+    SceneLoader.LoadLevelScene();
   }
 }

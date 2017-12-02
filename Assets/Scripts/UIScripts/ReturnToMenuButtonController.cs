@@ -3,6 +3,6 @@
 public class ReturnToMenuButtonController : MonoBehaviour {
   // interface
   public void Clicked() {
-    SceneLoader.LoadLevelScene();
+    SceneLoader.LoadMenuScene();
   }
 }
