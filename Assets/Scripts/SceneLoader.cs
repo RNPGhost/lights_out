@@ -13,9 +13,9 @@ public class SceneLoader : MonoBehaviour {
     "Corridors",
     "TwosCompany",
     "X-Wing",
-    "Batarang",
     "Vendetta",
     "Patrol",
+    "Batarang",
     "Batcave",
   };
 
