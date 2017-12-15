@@ -9,8 +9,8 @@ public class SceneLoader : MonoBehaviour {
   private static string[] _levelNames = {
     "Maze",
     "Gallery",
-    "Circuit",
     "Corridors",
+    "Circuit",
     "TwosCompany",
     "X-Wing",
     "Vendetta",
