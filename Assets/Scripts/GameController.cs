@@ -6,9 +6,7 @@ public class GameController : MonoBehaviour {
   // set in editor
   public GameObject _levelUI;
   public GameObject _gameOverUI;
-  public Text _gameOverText;
-  public string _winText;
-  public string _lossText;
+  public GameObject _successUI;
 
   // references
   private Map _map;
@@ -36,7 +34,7 @@ public class GameController : MonoBehaviour {
         // monsters don't move if the player will reach the goal this turn
         _movingCharacters.Add(_playerController);
         _playerController.Move(playerTargetPosition);
-        SwitchToGameOverUI(won: true);
+        SwitchToSuccessUI();
       } else {
         foreach (CharacterController characterController in _characterControllers) {
           _movingCharacters.Add(characterController);
@@ -58,7 +56,7 @@ public class GameController : MonoBehaviour {
   public void PlayerCaught(MonsterController monsterController) {
     if (_state != GameState.GameOver) {
       _state = GameState.GameOver;
-      SwitchToGameOverUI(won: false);
+      SwitchToGameOverUI();
     }
   }
 
@@ -72,10 +70,14 @@ public class GameController : MonoBehaviour {
   }
 
   // implementation
-  private void SwitchToGameOverUI(bool won) {
-    _gameOverText.text = won ? _winText : _lossText;
+  private void SwitchToGameOverUI() {
     _levelUI.SetActive(false);
     _gameOverUI.SetActive(true);
+  }
+
+  private void SwitchToSuccessUI() {
+    _levelUI.SetActive(false);
+    _successUI.SetActive(true);
   }
 
   private enum GameState {

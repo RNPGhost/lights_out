@@ -26,17 +26,20 @@ public class SceneLoader : MonoBehaviour {
   public static void LoadLevel(int levelNumber) {
     if (levelNumber > 0 && levelNumber <= _levelNames.Length) {
       _levelNumber = levelNumber;
-      _levelName = _levelNames[levelNumber - 1];
+      UpdateLevelName();
+      LoadLevelScene();
     }
-    LoadLevelScene();
   }
 
   public static void LoadNextLevel() {
     if (_levelNumber < _levelNames.Length) {
       _levelNumber++;
-      _levelName = _levelNames[_levelNumber - 1];
+      UpdateLevelName();
+      LoadLevelScene();
     }
-    LoadLevelScene();
+    else {
+      LoadMenuScene();
+    }
   }
 
   public static void ReloadLevel() {
@@ -44,6 +47,10 @@ public class SceneLoader : MonoBehaviour {
   }
 
   public static string GetLevelName() {
+    if (_levelName == null) {
+      _levelNumber = 1;
+      UpdateLevelName();
+    }
     return _levelName;
   }
 
@@ -54,5 +61,9 @@ public class SceneLoader : MonoBehaviour {
   // implementation
   private static void LoadLevelScene() {
     SceneManager.LoadScene(_levelSceneName);
+  }
+
+  private static void UpdateLevelName() {
+    _levelName = _levelNames[_levelNumber - 1];
   }
 }

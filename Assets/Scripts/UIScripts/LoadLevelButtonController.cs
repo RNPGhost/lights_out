@@ -9,4 +9,8 @@ public class LoadLevelButtonController : MonoBehaviour {
   public void RestartLevel() {
     SceneLoader.ReloadLevel();
   }
+
+  public void LoadNextLevel() {
+    SceneLoader.LoadNextLevel();
+  }
 }
