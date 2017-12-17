@@ -3,12 +3,11 @@
 public static class Utils {
   // constants
   private const float WORLD_SCALE = 2;
-  private const float MOVEMENT_TIME = 1;
-  private const string _playerTag = "Player";
+  private const string PLAYER_TAG = "Player";
 
   // interface
   public static string GetPlayerTag() {
-    return _playerTag;
+    return PLAYER_TAG;
   }
 
   public static Vector3 ConvertToWorldPosition(Vector2 mapPosition) {
@@ -25,7 +24,7 @@ public static class Utils {
   }
 
   public static float GetCharacterSpeed(float pathLength) {
-    return (pathLength * WORLD_SCALE) / MOVEMENT_TIME;
+    return (pathLength * WORLD_SCALE) * SpeedController.GetMovementSpeed();
   }
 
   public static Vector2 GetDirectionRelativeToGameObjectForwards(Vector2 mapDirection, GameObject gameObject) {
