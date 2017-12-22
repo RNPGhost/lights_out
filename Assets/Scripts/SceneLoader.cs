@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
@@ -54,12 +55,31 @@ public class SceneLoader : MonoBehaviour {
     return _levelName;
   }
 
+  public static bool HasNextLevel() {
+    return _levelNumber < _levelNames.Length;
+  }
+
   public static string GetLevelName(int levelNumber) {
     return _levelNames[levelNumber - 1];
   }
 
+  public static string GetNextLevelName() {
+    if (HasNextLevel()) {
+      return GetLevelName(_levelNumber + 1);
+    }
+    else {
+      return null;
+    }
+  }
+
   public static void LoadMenuScene() {
     SceneManager.LoadScene(_menuSceneName);
+  }
+
+  public static string[] GetLevelNames() {
+    string[] levelNames = new string[_levelNames.Length];
+    Array.Copy(_levelNames, levelNames, _levelNames.Length);
+    return levelNames;
   }
 
   // implementation

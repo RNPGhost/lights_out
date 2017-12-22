@@ -80,13 +80,16 @@ public class GameController : MonoBehaviour {
 
   private void PlayerSuccess() {
     string currentLevelName = SceneLoader.GetCurrentLevelName();
-    if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Optimal.ToString() && _moveNumber <= OptimalSolutionDecider.GetOptimalNumberOfMoves(currentLevelName)) {
-      PlayerPrefs.SetString(currentLevelName, ProgressState.Optimal.ToString());
-      _successCounter.color = _optimalColour;
-    } 
-    else if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Complete.ToString()) {
-      PlayerPrefs.SetString(currentLevelName, ProgressState.Complete.ToString());
+    if (!ProgressState.Optimal.IsStateOf(currentLevelName)) {
+      if (_moveNumber <= OptimalSolutionDecider.GetOptimalNumberOfMoves(currentLevelName)) {
+        ProgressState.SetProgressState(currentLevelName, ProgressState.Optimal);
+        _successCounter.color = _optimalColour;
+      } 
+      else if (!ProgressState.Complete.IsStateOf(currentLevelName)) {
+        ProgressState.SetProgressState(currentLevelName, ProgressState.Complete);
+      }
     }
+    LevelLockController.UnlockNextLevel();
     SwitchToSuccessUI();
   }
 

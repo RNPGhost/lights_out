@@ -23,11 +23,15 @@ public class LoadLevelButtonController : MonoBehaviour {
   // implementation
   private void Start() {
     Button button = GetComponent<Button>();
-    if (PlayerPrefs.GetString(SceneLoader.GetLevelName(_levelNumber)) == ProgressState.Complete.ToString()) {
+    string levelName = SceneLoader.GetLevelName(_levelNumber);
+    if (ProgressState.Optimal.IsStateOf(levelName)) {
+      SetButtonColour(button, _completeOptimallyColour);
+    }
+    else if (ProgressState.Complete.IsStateOf(levelName)) {
       SetButtonColour(button, _completeColour);
     }
-    else if (PlayerPrefs.GetString(SceneLoader.GetLevelName(_levelNumber)) == ProgressState.Optimal.ToString()) {
-      SetButtonColour(button, _completeOptimallyColour);
+    else if (ProgressState.Locked.IsStateOf(levelName)) {
+      button.interactable = false;
     }
   }
 
