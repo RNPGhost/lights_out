@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
   public GameObject _levelUI;
   public GameObject _gameOverUI;
   public GameObject _successUI;
+  public Color _optimalColour;
+  public Text _successCounter;
 
   // references
   private Map _map;
@@ -30,8 +32,6 @@ public class GameController : MonoBehaviour {
   public int GetMoveNumber() {
     return _moveNumber;
   }
-
-  
 
   public void MovementComplete(CharacterController characterController) {
     _movingCharacters.Remove(characterController);
@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour {
     string currentLevelName = SceneLoader.GetCurrentLevelName();
     if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Optimal.ToString() && _moveNumber <= OptimalSolutionDecider.GetOptimalNumberOfMoves(currentLevelName)) {
       PlayerPrefs.SetString(currentLevelName, ProgressState.Optimal.ToString());
+      _successCounter.color = _optimalColour;
     } 
     else if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Complete.ToString()) {
       PlayerPrefs.SetString(currentLevelName, ProgressState.Complete.ToString());
