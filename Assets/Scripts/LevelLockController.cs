@@ -4,7 +4,10 @@ public class LevelLockController : MonoBehaviour {
   // interface
   public static void UnlockNextLevel() {
     if (SceneLoader.HasNextLevel()) {
-      ProgressState.SetProgressState(SceneLoader.GetNextLevelName(), ProgressState.Unlocked);
+      string nextLevelName = SceneLoader.GetNextLevelName();
+      if (ProgressState.Locked.IsStateOf(nextLevelName)) {
+        ProgressState.SetProgressState(nextLevelName, ProgressState.Unlocked);
+      }
     }
   }
 
