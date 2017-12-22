@@ -27,26 +27,11 @@ public class GameController : MonoBehaviour {
     MoveCharacters(_playerController.GetPosition() + direction);
   }
 
-  public void MoveCharacters(Vector2 playerTargetPosition) {
-    if (_state == GameState.WaitingForMove && _playerController.CanMoveTo(playerTargetPosition)) {
-      _state = GameState.Moving;
-      _moveNumber++;
-      if (_map.IsGoal(playerTargetPosition)) {
-        _state = GameState.GameOver;
-        // monsters don't move if the player will reach the goal this turn
-        _movingCharacters.Add(_playerController);
-        _playerController.Move(playerTargetPosition);
-        PlayerSuccess();
-      } else {
-        foreach (CharacterController characterController in _characterControllers) {
-          _movingCharacters.Add(characterController);
-        }
-        foreach (CharacterController characterController in _characterControllers) {
-          characterController.Move(playerTargetPosition);
-        }
-      }
-    }
+  public int GetMoveNumber() {
+    return _moveNumber;
   }
+
+  
 
   public void MovementComplete(CharacterController characterController) {
     _movingCharacters.Remove(characterController);
@@ -72,6 +57,27 @@ public class GameController : MonoBehaviour {
   }
 
   // implementation
+  private void MoveCharacters(Vector2 playerTargetPosition) {
+    if (_state == GameState.WaitingForMove && _playerController.CanMoveTo(playerTargetPosition)) {
+      _state = GameState.Moving;
+      _moveNumber++;
+      if (_map.IsGoal(playerTargetPosition)) {
+        _state = GameState.GameOver;
+        // monsters don't move if the player will reach the goal this turn
+        _movingCharacters.Add(_playerController);
+        _playerController.Move(playerTargetPosition);
+        PlayerSuccess();
+      } else {
+        foreach (CharacterController characterController in _characterControllers) {
+          _movingCharacters.Add(characterController);
+        }
+        foreach (CharacterController characterController in _characterControllers) {
+          characterController.Move(playerTargetPosition);
+        }
+      }
+    }
+  }
+
   private void PlayerSuccess() {
     string currentLevelName = SceneLoader.GetCurrentLevelName();
     if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Optimal.ToString() && _moveNumber <= OptimalSolutionDecider.GetOptimalNumberOfMoves(currentLevelName)) {
