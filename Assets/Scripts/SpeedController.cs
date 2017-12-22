@@ -1,4 +1,6 @@
-﻿public static class SpeedController {
+﻿using UnityEngine;
+
+public static class SpeedController {
   // constants
   private static readonly SpeedMode[] _movementSpeedModes = {
     new SpeedMode(1, "Terrified"),
@@ -7,7 +9,7 @@
   };
 
   // state
-  private static int _movementSpeedModeIndex = 0;
+  private static int _movementSpeedModeIndex = PlayerPrefs.GetInt("PlayerSpeed");
 
   // interface
   public static float GetMovementSpeed() {
@@ -20,6 +22,7 @@
 
   public static void ChangeSpeed() {
     _movementSpeedModeIndex = (_movementSpeedModeIndex + 1) % _movementSpeedModes.Length;
+    PlayerPrefs.GetInt("PlayerSpeed", _movementSpeedModeIndex);
   }
 
 
