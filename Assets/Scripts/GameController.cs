@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
         // monsters don't move if the player will reach the goal this turn
         _movingCharacters.Add(_playerController);
         _playerController.Move(playerTargetPosition);
-        SwitchToSuccessUI();
+        PlayerSuccess();
       } else {
         foreach (CharacterController characterController in _characterControllers) {
           _movingCharacters.Add(characterController);
@@ -64,12 +64,17 @@ public class GameController : MonoBehaviour {
   private void Awake() {
     _state = GameState.WaitingForMove;
     _map = new Map();
-    new ObjectLoader(_map, SceneLoader.GetLevelName());
+    new ObjectLoader(_map, SceneLoader.GetCurrentLevelName());
     _characterControllers = FindObjectsOfType<CharacterController>();
     _playerController = FindObjectOfType<PlayerController>();
   }
 
   // implementation
+  private void PlayerSuccess() {
+    PlayerPrefs.SetString(SceneLoader.GetCurrentLevelName(), ProgressState.Complete.ToString());
+    SwitchToSuccessUI();
+  }
+
   private void SwitchToGameOverUI() {
     _levelUI.SetActive(false);
     _gameOverUI.SetActive(true);

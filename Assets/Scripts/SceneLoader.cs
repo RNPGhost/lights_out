@@ -46,12 +46,16 @@ public class SceneLoader : MonoBehaviour {
     LoadLevelScene();
   }
 
-  public static string GetLevelName() {
+  public static string GetCurrentLevelName() {
     if (_levelName == null) {
       _levelNumber = 1;
       UpdateLevelName();
     }
     return _levelName;
+  }
+
+  public static string GetLevelName(int levelNumber) {
+    return _levelNames[levelNumber - 1];
   }
 
   public static void LoadMenuScene() {
@@ -64,6 +68,6 @@ public class SceneLoader : MonoBehaviour {
   }
 
   private static void UpdateLevelName() {
-    _levelName = _levelNames[_levelNumber - 1];
+    _levelName = GetLevelName(_levelNumber);
   }
 }
