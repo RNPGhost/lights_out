@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
   private CharacterController[] _characterControllers;
   private HashSet<CharacterController> _movingCharacters = new HashSet<CharacterController>();
   private PlayerController _playerController;
+  private int _moveNumber = 0;
 
   // interface
   public Map GetMap() {
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour {
   public void MoveCharacters(Vector2 playerTargetPosition) {
     if (_state == GameState.WaitingForMove && _playerController.CanMoveTo(playerTargetPosition)) {
       _state = GameState.Moving;
+      _moveNumber++;
       if (_map.IsGoal(playerTargetPosition)) {
         _state = GameState.GameOver;
         // monsters don't move if the player will reach the goal this turn
@@ -71,7 +73,13 @@ public class GameController : MonoBehaviour {
 
   // implementation
   private void PlayerSuccess() {
-    PlayerPrefs.SetString(SceneLoader.GetCurrentLevelName(), ProgressState.Complete.ToString());
+    string currentLevelName = SceneLoader.GetCurrentLevelName();
+    if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Optimal.ToString() && _moveNumber <= OptimalSolutionDecider.GetOptimalNumberOfMoves(currentLevelName)) {
+      PlayerPrefs.SetString(currentLevelName, ProgressState.Optimal.ToString());
+    } 
+    else if (PlayerPrefs.GetString(currentLevelName) != ProgressState.Complete.ToString()) {
+      PlayerPrefs.SetString(currentLevelName, ProgressState.Complete.ToString());
+    }
     SwitchToSuccessUI();
   }
 
