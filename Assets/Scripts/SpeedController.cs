@@ -22,7 +22,7 @@ public static class SpeedController {
 
   public static void ChangeSpeed() {
     _movementSpeedModeIndex = (_movementSpeedModeIndex + 1) % _movementSpeedModes.Length;
-    PlayerPrefs.GetInt("PlayerSpeed", _movementSpeedModeIndex);
+    PlayerPrefs.SetInt("PlayerSpeed", _movementSpeedModeIndex);
   }
 
 
